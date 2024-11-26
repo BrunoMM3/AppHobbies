@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react'
+import HobbiesList from './Components/HobbiesList'
+
+import {hobbies as data} from './data/hobbies'
+import HobbiesForm from './Components/HobbiesForm'
 
 function App() {
+
+  const [hobbies, setHobbies] = useState([])
+
+    useEffect(() => {
+      setHobbies(data)
+    }, [])
+
+    function createHobby(hobby){
+      setHobbies([...hobbies,hobby])
+    }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <HobbiesForm createHobby={createHobby} />
+      <HobbiesList hobbies={hobbies}/>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
